@@ -1,22 +1,26 @@
 const generatedList = [];
 
-const stringBuilder = (str, char, position) => {
-  str = str.substr(0, position) + char + str.substr(position);
+const stringBuilder = (str, position) => {
+  str = `${str.substr(0, position)}.${str.substr(position)}`;
   return str;
 };
 
-const combinate = (string = "abcd", i = 0) => {
-  while (i + 1 < string.length) {
-    i++;
+const combinate = (string, index = 0) => {
+  if (!generatedList.length) {
+    generatedList.push(string);
+  }
 
-    let newString = stringBuilder(string, ".", i);
+  while (index + 1 < string.length) {
+    index++;
 
-    generatedList.push(newString);
+    let tempStr = stringBuilder(string, index);
 
-    combinate(newString, i + 1);
+    generatedList.push(tempStr);
+
+    combinate(tempStr, index + 1);
   }
 
   return generatedList;
 };
 
-console.log(combinate("abcd"));
+console.log(combinate("abcde"));
